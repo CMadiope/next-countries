@@ -1,9 +1,25 @@
 import Head from "next/head";
 import { useState } from "react";
 import { BsFillMoonFill, BsMoon } from "react-icons/bs";
+import { BsSearch } from "react-icons/bs";
+import { AiOutlineDown } from "react-icons/ai";
+
+const options = ["Africa", "America", "Asia"];
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const menuToggle = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const onOptionClicked = (value) => () => {
+    setSelectedOption(value);
+    setIsOpen(false);
+    console.log(selectedOption);
+  };
 
   return (
     <div className={darkMode ? "dark" : ""}>
@@ -19,7 +35,10 @@ export default function Home() {
             <h3 className='text-black text-2xl pl-24 dark:text-white cursor-pointer'>
               Where in the world?
             </h3>
-            <button className='text-black pr-24 flex gap-3 dark:text-white hover:scale-110' onClick={()=> setDarkMode(!darkMode)}>
+            <button
+              className='text-black pr-24 flex gap-3 dark:text-white hover:scale-110'
+              onClick={() => setDarkMode(!darkMode)}
+            >
               {darkMode ? (
                 <BsFillMoonFill className='mt-1' />
               ) : (
@@ -28,6 +47,39 @@ export default function Home() {
               Dark Mode
             </button>
           </nav>
+          <div className='flex justify-between p-24'>
+            <div className='bg-white flex dark:bg-light-blue '>
+              <BsSearch className='text-dark-gray dark:text-white ' />
+              <input
+                className='bg-transparent text-sm outline-none text-dark-gray dark:text-white'
+                type='text'
+                placeholder='Search for a country'
+              />
+            </div>
+            <div className='bg-white dark:bg-light-blue w-37 min-w-fit'>
+              <div className='flex cursor-pointer '>
+                <h3 className='text-dark-gray text-sm' onClick={menuToggle}>
+                  {selectedOption || " Filter by Region"}
+                </h3>
+                <AiOutlineDown className='text-dark-gray ml-2 mt-1' />
+              </div>
+              {isOpen && (
+                <div className='absolute'>
+                  <ul className='p-0 m-0 text-sm box-border '>
+                    {options.map((option) => (
+                      <li
+                        onClick={onOptionClicked(option)}
+                        key={Math.random()}
+                        className='text-dark-gray mb-2 min-w-fit cursor-pointer'
+                      >
+                        {option}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
         </section>
       </main>
     </div>
