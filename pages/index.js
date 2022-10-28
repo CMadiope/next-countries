@@ -3,6 +3,8 @@ import { useState } from "react";
 import { BsFillMoonFill, BsMoon } from "react-icons/bs";
 import { BsSearch } from "react-icons/bs";
 import { AiOutlineDown } from "react-icons/ai";
+import Image from "next/image";
+import germany from "../public/germany.png";
 
 const options = ["Africa", "America", "Asia"];
 
@@ -48,8 +50,8 @@ export default function Home() {
             </button>
           </nav>
           <div className='flex justify-between p-24'>
-            <div className='bg-white flex dark:bg-light-blue '>
-              <BsSearch className='text-dark-gray dark:text-white ' />
+            <div className='bg-white flex dark:bg-light-blue p-5'>
+              <BsSearch className='text-dark-gray dark:text-white mr-2' />
               <input
                 className='bg-transparent text-sm outline-none text-dark-gray dark:text-white'
                 type='text'
@@ -57,11 +59,11 @@ export default function Home() {
               />
             </div>
             <div className='bg-white dark:bg-light-blue w-37 min-w-fit'>
-              <div className='flex cursor-pointer '>
-                <h3 className='text-dark-gray text-sm' onClick={menuToggle}>
+              <div className='flex cursor-pointer pb-5' onClick={menuToggle}>
+                <h3 className='text-dark-gray text-sm pt-5 pl-5 pr-5'>
                   {selectedOption || " Filter by Region"}
                 </h3>
-                <AiOutlineDown className='text-dark-gray ml-2 mt-1' />
+                <AiOutlineDown className='text-dark-gray ml-2 mt-6 mr-5' />
               </div>
               {isOpen && (
                 <div className='absolute'>
@@ -78,6 +80,43 @@ export default function Home() {
                   </ul>
                 </div>
               )}
+            </div>
+          </div>
+
+          {/* Cards */}
+
+          <div className='grid gap-4 grid-cols-4 pl-24 pr-24'>
+            <div className='bg-white dark:bg-light-blue h-80 w-60 rounded-md cursor-pointer hover:scale-110'>
+              <Image src={germany} alt='flag' />
+              <div className='pl-8 mt-3'>
+                <h4 className='text-lg dark:text-white pb-3'>Germany</h4>
+                <div className='flex pb-1'>
+                  <span className='font-medium text-sm dark:text-white'>
+                    Population:
+                  </span>
+                  <span className='text-sm dark:text-white font-thin pl-2'>
+                    81,700,590
+                  </span>
+                </div>
+                <div className='flex pb-1'>
+                  <span className='font-medium text-sm dark:text-white'>
+                    Region:
+                  </span>
+                  <span className='text-sm dark:text-white font-thin pl-2'>
+                    Europe
+                  </span>
+                </div>
+                <div className='flex pb-1'>
+                  <span className='font-medium text-sm dark:text-white'>
+                    Capital:
+                  </span>
+                  <span className='text-sm dark:text-white font-thin pl-2'>
+                    Berlin
+                  </span>
+                </div>
+
+                <span></span>
+              </div>
             </div>
           </div>
         </section>
